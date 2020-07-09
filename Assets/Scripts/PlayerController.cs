@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
             HighlightMap.SetTile(pos, null);
         walkableTilePositions.Clear();
         enemeyInRangePositions.Clear();
+        //Change
     }
 
     private class MovementPath
