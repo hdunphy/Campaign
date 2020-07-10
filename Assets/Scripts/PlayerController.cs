@@ -8,9 +8,7 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     public Tilemap BaseTileMap;
-    public Tilemap HighlightMap;
-    public Tile WalkableTile;
-    public Tile AttackRangeTile;
+    public HighlightTile Highlight;
     public int MoveDistance;
     public int AttackRange;
     public float MoveSpeed;
@@ -37,7 +35,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SelectUnit()
+    //public void SelectUnit()
+    private void OnMouseDown()
     {
         if (isSelected)
         {
@@ -125,17 +124,23 @@ public class PlayerController : MonoBehaviour
 
         foreach (Vector3Int pos in walkableTilePositions)
         {
-            if (!unitPositions.Contains(pos))
-                HighlightMap.SetTile(pos, WalkableTile);
+            if (!unitPositions.Contains(pos)) {
+                var highlight = Instantiate(Highlight, pos, Quaternion.identity);
+                highlight.SetColor(HighlightTileType.Move);
+            }
         }
         foreach (Vector3Int pos in enemeyInRangePositions)
-            HighlightMap.SetTile(pos, AttackRangeTile);
+        {
+            var highlight = Instantiate(Highlight, pos, Quaternion.identity);
+            highlight.SetColor(HighlightTileType.Attack);
+        }
     }
 
     public void ResetHighlightedTiles()
     {
-        foreach (Vector3Int pos in walkableTilePositions.Union(enemeyInRangePositions))
-            HighlightMap.SetTile(pos, null);
+        Debug.Log("Reset");
+        foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
+            Destroy(highlight.gameObject);
         walkableTilePositions.Clear();
         enemeyInRangePositions.Clear();
     }
