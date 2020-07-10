@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,16 +10,28 @@ public class HighlightTile : MonoBehaviour
 
     private void OnMouseDown()
     {
-        PlayerController player = Manager.Instance.GetPlayer();
+        PlayerController selectedPlayer = Manager.Instance.GetPlayer();
         Vector3Int tilePos = highlightTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         TileBase highlightedTile = highlightTileMap.GetTile(tilePos);
-        if (player != null && highlightedTile != null)
+
+        PlayerController playerOnTile = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == tilePos);
+        if(selectedPlayer == null)
         {
-            player.Move(tilePos);
+            playerOnTile.SelectUnit();
         }
-        else if(highlightedTile == null)
+        else
         {
-            Manager.Instance.SetSelectedPlayer(null);
+            if (playerOnTile != null && selectedPlayer != playerOnTile)
+                playerOnTile.SelectUnit();
+            //need to add a check for enemy players to attack
+            else if (selectedPlayer != null && highlightedTile != null)
+            {
+                selectedPlayer.Move(tilePos);
+            }
+            else if (highlightedTile == null)
+            {
+                Manager.Instance.SetSelectedPlayer(null);
+            }
         }
     }
 }

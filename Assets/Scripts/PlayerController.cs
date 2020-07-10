@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnMouseDown()
+    public void SelectUnit()
     {
         if (isSelected)
         {
@@ -88,23 +88,25 @@ public class PlayerController : MonoBehaviour
                 if (tile != null)
                 {
                     newCost = tile.MovementCost + current.cost;
-                    if (newCost <= MoveDistance)
+                    bool hasVisited = visited.ContainsKey(newPos);
+                    if (hasVisited && (int)visited[newPos] <= newCost)
+                        continue;
+
+                    if (hasVisited)
+                        visited[newPos] = newCost;
+                    else
+                        visited.Add(newPos, newCost);
+
+                    PlayerController enemy = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == newPos && x.PlayerColor != this.PlayerColor);
+                    if (enemy != null && MoveDistance + AttackRange >= current.cost + 1)
                     {
-                        bool hasVisited = visited.ContainsKey(newPos);
-                        if (hasVisited && (int)visited[newPos] > newCost)
-                            continue;
-
-                        if (hasVisited)
-                            visited[newPos] = newCost;
-                        else
-                            visited.Add(newPos, newCost);
-
-                        PlayerController enemy = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == newPos && x.PlayerColor != this.PlayerColor);
-                        if (enemy != null && MoveDistance + AttackRange >= current.cost + 1)
-                            enemeyInRangePositions.Add(newPos);
-                        else if (!walkableTilePositions.Contains(newPos))
-                            walkableTilePositions.Add(newPos);
-
+                        enemeyInRangePositions.Add(newPos);
+                        newCost = 99999; //Can't move through enemies
+                        queue.Add(new MovementPath { cost = newCost, position = newPos });
+                    }
+                    else if (newCost <= MoveDistance && !walkableTilePositions.Contains(newPos))
+                    {
+                        walkableTilePositions.Add(newPos);
                         queue.Add(new MovementPath { cost = newCost, position = newPos });
                     }
                 }
@@ -136,7 +138,6 @@ public class PlayerController : MonoBehaviour
             HighlightMap.SetTile(pos, null);
         walkableTilePositions.Clear();
         enemeyInRangePositions.Clear();
-        //Change
     }
 
     private class MovementPath

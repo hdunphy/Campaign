@@ -26,7 +26,6 @@ public class Manager : MonoBehaviour
 
         if (selectedPlayer != null)
             selectedPlayer.SetSelected(true);
-
     }
 
     public PlayerController GetPlayer()

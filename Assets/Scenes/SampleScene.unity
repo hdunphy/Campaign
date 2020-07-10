@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
@@ -192,7 +192,7 @@ PrefabInstance:
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
@@ -304,6 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 551236881}
   - component: {fileID: 551236880}
+  - component: {fileID: 551236882}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -336,8 +337,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551236882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551236879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94de9497e4f3bdb44a8e272c4844c011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightTileMap: {fileID: 619807187}
 --- !u!1 &619807182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4010,7 +4024,7 @@ PrefabInstance:
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
@@ -4065,8 +4079,6 @@ GameObject:
   - component: {fileID: 1600144202}
   - component: {fileID: 1600144206}
   - component: {fileID: 1600144205}
-  - component: {fileID: 1600144204}
-  - component: {fileID: 1600144203}
   m_Layer: 0
   m_Name: Tilemap_Base
   m_TagString: Untagged
@@ -4088,35 +4100,6 @@ Transform:
   m_Father: {fileID: 2075650110}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1600144203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600144201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae81cc9bbd08e445b09dddd0ab52266, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlightTileMap: {fileID: 619807187}
---- !u!19719996 &1600144204
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600144201}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
 --- !u!483693784 &1600144205
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -7135,7 +7118,7 @@ Transform:
   - {fileID: 763214509}
   - {fileID: 619807183}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1397773903107994653
 PrefabInstance:
@@ -7188,7 +7171,7 @@ PrefabInstance:
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
@@ -7213,7 +7196,7 @@ PrefabInstance:
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1397773904755052914, guid: bc3c5041c5d70a347b3240dabeedeb9a,
         type: 3}
