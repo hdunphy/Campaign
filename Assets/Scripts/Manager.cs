@@ -10,14 +10,14 @@ public class Manager : MonoBehaviour
     public static Manager Instance;
     public Tilemap HighlightTileMap;
 
-    private PlayerController selectedPlayer;
+    private Unit selectedPlayer;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void SetSelectedPlayer(PlayerController player)
+    public void SetSelectedPlayer(Unit player)
     {
         if(selectedPlayer == null)
         {
@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public PlayerController GetPlayer()
+    public Unit GetPlayer()
     {
         return selectedPlayer;
     }

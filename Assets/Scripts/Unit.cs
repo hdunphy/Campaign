@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class PlayerController : MonoBehaviour
+public class Unit : MonoBehaviour
 {
     public Tilemap BaseTileMap;
     public HighlightTile Highlight;
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
                     else
                         visited.Add(newPos, newCost);
 
-                    PlayerController enemy = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == newPos && x.PlayerColor != this.PlayerColor);
+                    Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == newPos && x.PlayerColor != this.PlayerColor);
                     if (enemy != null && MoveDistance + AttackRange >= current.cost + 1)
                     {
                         enemeyInRangePositions.Add(newPos);
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void DrawWalkableTiles()
     {
-        IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<PlayerController>()
+        IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
             //.Where(x => x.PlayerColor == PlayerColor)
             .Select(x => x.GetTilePosition());
 
