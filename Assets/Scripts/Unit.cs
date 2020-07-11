@@ -40,11 +40,11 @@ public class Unit : MonoBehaviour
     {
         if (isSelected)
         {
-            _manager.SetSelectedPlayer(null);
+            _manager.SetSelectedUnit(null);
         }
         else
         {
-            _manager.SetSelectedPlayer(this);
+            _manager.SetSelectedUnit(this);
         }
     }
 
@@ -138,7 +138,6 @@ public class Unit : MonoBehaviour
 
     public void ResetHighlightedTiles()
     {
-        Debug.Log("Reset");
         foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
             Destroy(highlight.gameObject);
         walkableTilePositions.Clear();
@@ -165,19 +164,10 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        Vector3Int cellPos = BaseTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        var tile = BaseTileMap.GetTile(cellPos);
-        Debug.Log(tile.GetType().Name);
-        Vector3 cell = cellPos + new Vector3(0.5f, 0.5f);
-        transform.position = cell;
-    }
-
     public void Move(Vector3Int movePosition)
     {
         transform.position = movePosition + PositionOffset;
-        _manager.SetSelectedPlayer(null);
+        _manager.SetSelectedUnit(null);
     }
 
     public Vector3Int GetTilePosition()

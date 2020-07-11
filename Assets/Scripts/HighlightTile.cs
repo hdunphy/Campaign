@@ -12,8 +12,11 @@ public class HighlightTile : MonoBehaviour
     public Color AttackColor;
     public Color MoveColor;
 
+    private HighlightTileType TileType;
+
     public void SetColor(HighlightTileType type)
     {
+        TileType = type;
         switch (type)
         {
             case HighlightTileType.Attack:
@@ -33,22 +36,18 @@ public class HighlightTile : MonoBehaviour
     private void OnMouseDown()
     {
 
-        //PlayerController selectedPlayer = Manager.Instance.GetPlayer();
+        Unit selectedUnit = Manager.Instance.GetSelectedUnit();
         //Vector3Int tilePos = highlightTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         //TileBase highlightedTile = highlightTileMap.GetTile(tilePos);
 
         //PlayerController playerOnTile = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == tilePos);
         Debug.Log("HightlightTile called");
-        //if(selectedPlayer != null)
-        //{
-        //    if (selectedPlayer != null && highlightedTile != null)
-        //    {
-        //        selectedPlayer.Move(tilePos);
-        //    }
-        //    else if (highlightedTile == null)
-        //    {
-        //        Manager.Instance.SetSelectedPlayer(null);
-        //    }
-        //}
+        if (selectedUnit != null)
+        {
+            if(TileType == HighlightTileType.Move)
+            {
+                selectedUnit.Move(Vector3Int.FloorToInt(transform.position));
+            }
+        }
     }
 }

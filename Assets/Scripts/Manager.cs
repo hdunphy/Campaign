@@ -10,41 +10,27 @@ public class Manager : MonoBehaviour
     public static Manager Instance;
     public Tilemap HighlightTileMap;
 
-    private Unit selectedPlayer;
+    private Unit selectedUnit;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void SetSelectedPlayer(Unit player)
+    public void SetSelectedUnit(Unit unit)
     {
-        if(selectedPlayer == null)
-        {
-            player.SetSelected(true);
-            selectedPlayer = player;
-        }
-        else if(player == null)
-        {
-            selectedPlayer.SetSelected(false);
-            selectedPlayer = null;
-        }
-        else if(selectedPlayer == player)
-        {
-            player.SetSelected(false);
-            selectedPlayer = null;
-        }
-        else //selectedPlayer and player are not null but are different
-        {
-            selectedPlayer.SetSelected(false);
-            player.SetSelected(true);
-            selectedPlayer = player;
-        }
+        if (selectedUnit != null)
+            selectedUnit.SetSelected(false);
+
+        selectedUnit = unit;
+
+        if (selectedUnit != null)
+            selectedUnit.SetSelected(true);
     }
 
-    public Unit GetPlayer()
+    public Unit GetSelectedUnit()
     {
-        return selectedPlayer;
+        return selectedUnit;
     }
 
 
