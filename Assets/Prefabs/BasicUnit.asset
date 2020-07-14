@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec6ac381905ac647b6ba5c20ddc493a, type: 3}
+  m_Name: BasicUnit
+  m_EditorClassIdentifier: 
+  HighlightTile: {fileID: 7601720668273744229, guid: a69c39a90ecadf64390998134d92fba2,
+    type: 3}
+  MoveDistance: 5
+  AttackRange: 1
+  MoveSpeed: 5
+  PositionOffset: {x: 0, y: 0, z: 0}
+  Attack: 10
+  Defense: 5
+  Health: 100

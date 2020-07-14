@@ -13,6 +13,7 @@ public class HighlightTile : MonoBehaviour
     public Color MoveColor;
 
     private HighlightTileType TileType;
+    private IHighlightTileAction tileAction;
 
     public void SetColor(HighlightTileType type)
     {
@@ -21,9 +22,11 @@ public class HighlightTile : MonoBehaviour
         {
             case HighlightTileType.Attack:
                 spriteRenderer.color = AttackColor;
+                tileAction = new HighlightAttackAction();
                 break;
             case HighlightTileType.Move:
                 spriteRenderer.color = MoveColor;
+                tileAction = new HighlightMoveAction();
                 break;
         }
     }
@@ -44,10 +47,7 @@ public class HighlightTile : MonoBehaviour
         Debug.Log("HightlightTile called");
         if (selectedUnit != null)
         {
-            if(TileType == HighlightTileType.Move)
-            {
-                selectedUnit.Move(Vector3Int.FloorToInt(transform.position));
-            }
+            tileAction.OnMouseDownAction(selectedUnit, Vector3Int.FloorToInt(transform.position));
         }
     }
 }

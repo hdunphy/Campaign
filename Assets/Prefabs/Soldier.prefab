@@ -123,10 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseTileMap: {fileID: 0}
-  Highlight: {fileID: 7601720668273744229, guid: a69c39a90ecadf64390998134d92fba2,
-    type: 3}
-  MoveDistance: 5
-  AttackRange: 1
-  MoveSpeed: 5
-  PositionOffset: {x: 0, y: 0, z: 0}
   PlayerColor: 1
+  Stats: {fileID: 11400000, guid: 3f877799b768ec84b96522ec311b3913, type: 2}

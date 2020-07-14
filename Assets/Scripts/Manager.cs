@@ -8,7 +8,6 @@ public enum PlayerColor { Red, Blue }
 public class Manager : MonoBehaviour
 {
     public static Manager Instance;
-    public Tilemap HighlightTileMap;
 
     private Unit selectedUnit;
 

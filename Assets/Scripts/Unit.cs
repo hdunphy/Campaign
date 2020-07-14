@@ -8,21 +8,28 @@ using UnityEngine.Tilemaps;
 public class Unit : MonoBehaviour
 {
     public Tilemap BaseTileMap;
-    public HighlightTile Highlight;
-    public int MoveDistance;
-    public int AttackRange;
-    public float MoveSpeed;
-    public Vector3 PositionOffset;
     public PlayerColor PlayerColor;
+    public UnitStats Stats;
 
     private Manager _manager;
     private bool isSelected;
+    private int MoveDistance;
+    private int AttackRange;
+    private float MoveSpeed;
+    private Vector3 PositionOffset;
+    private HighlightTile Highlight;
     private List<Vector3Int> walkableTilePositions;
     private List<Vector3Int> enemeyInRangePositions;
 
     // Start is called before the first frame update
     void Start()
     {
+        MoveDistance = Stats.MoveDistance;
+        AttackRange = Stats.AttackRange;
+        MoveSpeed = Stats.MoveSpeed;
+        PositionOffset = Stats.PositionOffset;
+        Highlight = Stats.HighlightTile;
+
         walkableTilePositions = new List<Vector3Int>();
         enemeyInRangePositions = new List<Vector3Int>();
         _manager = Manager.Instance;
@@ -38,6 +45,7 @@ public class Unit : MonoBehaviour
     //public void SelectUnit()
     private void OnMouseDown()
     {
+        Debug.Log("Unit selected");
         if (isSelected)
         {
             _manager.SetSelectedUnit(null);
