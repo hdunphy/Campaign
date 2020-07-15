@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
 
     private Manager _manager;
     private bool isSelected;
+    private bool hasMoved;
     private int MoveDistance;
     private int AttackRange;
     private float MoveSpeed;
@@ -30,6 +31,8 @@ public class Unit : MonoBehaviour
         PositionOffset = Stats.PositionOffset;
         Highlight = Stats.HighlightTile;
 
+        hasMoved = false;
+
         walkableTilePositions = new List<Vector3Int>();
         enemeyInRangePositions = new List<Vector3Int>();
         _manager = Manager.Instance;
@@ -45,14 +48,16 @@ public class Unit : MonoBehaviour
     //public void SelectUnit()
     private void OnMouseDown()
     {
-        Debug.Log("Unit selected");
-        if (isSelected)
+        if (Manager.Instance.GetCurrentPlayer() == PlayerColor)
         {
-            _manager.SetSelectedUnit(null);
-        }
-        else
-        {
-            _manager.SetSelectedUnit(this);
+            if (isSelected)
+            {
+                _manager.SetSelectedUnit(null);
+            }
+            else
+            {
+                _manager.SetSelectedUnit(this);
+            }
         }
     }
 
@@ -61,7 +66,10 @@ public class Unit : MonoBehaviour
         this.isSelected = isSelected;
         if (this.isSelected)
         {
-            SetTileHighlights();
+            if (!hasMoved)
+            {
+                SetTileHighlights();
+            }
         }
         else
         {
@@ -132,7 +140,8 @@ public class Unit : MonoBehaviour
 
         foreach (Vector3Int pos in walkableTilePositions)
         {
-            if (!unitPositions.Contains(pos)) {
+            if (!unitPositions.Contains(pos))
+            {
                 var highlight = Instantiate(Highlight, pos, Quaternion.identity);
                 highlight.SetColor(HighlightTileType.Move);
             }
@@ -174,12 +183,34 @@ public class Unit : MonoBehaviour
 
     public void Move(Vector3Int movePosition)
     {
-        transform.position = movePosition + PositionOffset;
         _manager.SetSelectedUnit(null);
+        StartCoroutine(StartMovement(movePosition));
+    }
+
+    private IEnumerator StartMovement(Vector3 movePosition)
+    {
+        while (transform.position.x != movePosition.x)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(movePosition.x, transform.position.y), MoveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        while (transform.position.y != movePosition.y)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, movePosition.y), MoveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        hasMoved = true;
     }
 
     public Vector3Int GetTilePosition()
     {
         return BaseTileMap.WorldToCell(transform.position);
+    }
+
+    public void EndOfTurn()
+    {
+        hasMoved = false;
     }
 }
