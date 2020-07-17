@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     public Tilemap BaseTileMap;
     public PlayerColor PlayerColor;
     public UnitStats Stats;
+    public static int MOVEMENT_COST = 9999;
 
     private Manager _manager;
     private bool isSelected;
@@ -80,7 +81,7 @@ public class Unit : MonoBehaviour
     public void Move(Vector3Int movePosition)
     {
         _manager.SetSelectedUnit(null);
-        StartCoroutine(StartMovement(movePosition));
+        StartCoroutine(StartPathFindingMovement(movePosition));
     }
 
     private IEnumerator StartMovement(Vector3 movePosition)
@@ -95,6 +96,21 @@ public class Unit : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, movePosition.y), MoveSpeed * Time.deltaTime);
             yield return null;
+        }
+
+        hasMoved = true;
+    }
+
+    private IEnumerator StartPathFindingMovement(Vector3 movePosition)
+    {
+        List<Vector3Int> path = PathFinding.Instance.FindPathBetween(transform.position, movePosition);
+        foreach(Vector3 step in path)
+        {
+            while(transform.position != step)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, step, MoveSpeed * Time.deltaTime);
+                yield return null;
+            }
         }
 
         hasMoved = true;

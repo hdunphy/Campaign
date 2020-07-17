@@ -7,15 +7,21 @@ using UnityEngine.Tilemaps;
 public class PathFinding : MonoBehaviour
 {
     public Tilemap BaseTileMap;
+    public HighlightTile Highlight;
     public static PathFinding Instance;
 
     private List<Vector3Int> highlightTilePositions;
-    public HighlightTile Highlight;
+    private AStar AStar;
 
     private void Awake()
     {
         Instance = this;
         highlightTilePositions = new List<Vector3Int>();
+    }
+
+    private void Start()
+    {
+        AStar = new AStar(BaseTileMap);
     }
 
     public void SetTileHighlights(Vector3 position, int MoveDistance, int AttackRange, PlayerColor playerColor)
@@ -61,7 +67,7 @@ public class PathFinding : MonoBehaviour
                     {
                         var highlight = Instantiate(Highlight, newPosition, Quaternion.identity);
                         highlight.SetColor(HighlightTileType.Attack);
-                        newCost = 99999; //Can't move through enemies
+                        newCost = Unit.MOVEMENT_COST; //Can't move through enemies
                         queue.Add(new MovementPath { cost = newCost, position = newPosition });
                     }
                     else if (newCost <= MoveDistance && !highlightTilePositions.Contains(newPosition))
@@ -78,56 +84,21 @@ public class PathFinding : MonoBehaviour
             }
             queue.RemoveAt(0);
         }
-
-        //DrawWalkableTiles();
     }
-
-    //private void DrawWalkableTiles()
-    //{
-    //    IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
-    //        .Select(x => x.GetTilePosition());
-
-    //    foreach (Vector3Int pos in walkableTilePositions)
-    //    {
-    //        if (!unitPositions.Contains(pos))
-    //        {
-    //            var highlight = Instantiate(Highlight, pos, Quaternion.identity);
-    //            highlight.SetColor(HighlightTileType.Move);
-    //        }
-    //    }
-    //    foreach (Vector3Int pos in enemeyInRangePositions)
-    //    {
-    //        var highlight = Instantiate(Highlight, pos, Quaternion.identity);
-    //        highlight.SetColor(HighlightTileType.Attack);
-    //    }
-    //}
 
     public void ResetHighlightedTiles()
     {
         foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
             Destroy(highlight.gameObject);
         highlightTilePositions.Clear();
-        //walkableTilePositions.Clear();
-        //enemeyInRangePositions.Clear();
     }
 
-    private class MovementPath
+    public List<Vector3Int> FindPathBetween(Vector3 start, Vector3 goal)
     {
-        public Vector3Int position;
-        public int cost;
-
-        public override bool Equals(object obj)
-        {
-            return obj is MovementPath path &&
-                   position.Equals(path.position);
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = 810222802;
-            hashCode = hashCode * -1521134295 + position.GetHashCode();
-            hashCode = hashCode * -1521134295 + cost.GetHashCode();
-            return hashCode;
-        }
+        Vector3Int startInt = BaseTileMap.WorldToCell(start);
+        Vector3Int goalInt = BaseTileMap.WorldToCell(goal);
+        List<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
+            .Select(x => x.GetTilePosition()).ToList();
+        return AStar.GetPath(startInt, goalInt, unitPositions);
     }
 }
