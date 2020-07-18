@@ -18,10 +18,6 @@ public class Unit : MonoBehaviour
     private int MoveDistance;
     private int AttackRange;
     private float MoveSpeed;
-    private Vector3 PositionOffset;
-    private HighlightTile Highlight;
-    private List<Vector3Int> walkableTilePositions;
-    private List<Vector3Int> enemeyInRangePositions;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +25,9 @@ public class Unit : MonoBehaviour
         MoveDistance = Stats.MoveDistance;
         AttackRange = Stats.AttackRange;
         MoveSpeed = Stats.MoveSpeed;
-        PositionOffset = Stats.PositionOffset;
-        Highlight = Stats.HighlightTile;
 
         hasMoved = false;
 
-        walkableTilePositions = new List<Vector3Int>();
-        enemeyInRangePositions = new List<Vector3Int>();
         _manager = Manager.Instance;
 
         //Set sprite color for which team
@@ -44,43 +36,63 @@ public class Unit : MonoBehaviour
         else if (PlayerColor == PlayerColor.Red)
             GetComponent<SpriteRenderer>().color = Color.red;
 
+        EventManager.Instance.SelectUnit += OnSelectedUnit;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.SelectUnit -= OnSelectedUnit;
     }
 
     //public void SelectUnit()
     private void OnMouseDown()
     {
-        if (Manager.Instance.GetCurrentPlayer() == PlayerColor)
+        if (_manager.GetCurrentPlayer() == PlayerColor)
         {
-            if (isSelected)
-            {
-                _manager.SetSelectedUnit(null);
-            }
-            else
-            {
-                _manager.SetSelectedUnit(this);
-            }
+            Debug.Log("OnMouseDown in selected unit");
+            //Trigger isSelected
+            EventManager.Instance.OnSelectUnitTrigger(this);
         }
     }
 
-    internal void SetSelected(bool isSelected)
+    private void OnSelectedUnit(Unit selectedUnit)
     {
-        this.isSelected = isSelected;
-        if (this.isSelected)
+        if (selectedUnit == this)
         {
-            if (!hasMoved)
+            EventManager.Instance.OnResetHighlightedTileTrigger();
+            isSelected = !isSelected;
+            if (isSelected && !hasMoved)
             {
-                PathFinding.Instance.SetTileHighlights(transform.position, MoveDistance, AttackRange, PlayerColor);
+                EventManager.Instance.OnSetHighlightedTileTrigger(this);
             }
         }
         else
         {
-            PathFinding.Instance.ResetHighlightedTiles();
+            isSelected = false;
         }
     }
 
+    //public void SetSelected(bool isSelected)
+    //{
+    //    this.isSelected = isSelected;
+    //    if (this.isSelected)
+    //    {
+    //        if (!hasMoved)
+    //        {
+    //            EventManager.Instance.OnSetHighlightedTileTrigger(this);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        EventManager.Instance.OnResetHighlightedTileTrigger();
+    //    }
+    //}
+
     public void Move(Vector3Int movePosition)
     {
-        _manager.SetSelectedUnit(null);
+        //_manager.SetSelectedUnit(null);
+        EventManager.Instance.OnSelectUnitTrigger(null);
+        EventManager.Instance.OnResetHighlightedTileTrigger();
         StartCoroutine(StartPathFindingMovement(movePosition));
     }
 
@@ -102,7 +114,7 @@ public class Unit : MonoBehaviour
     public void Attack(Vector3Int highlightPosition)
     {
         Debug.Log("Attack");
-        PathFinding.Instance.ResetHighlightedTiles();
+        //EventManager.Instance.OnResetHighlightedTileTrigger();
     }
 
     public Vector3Int GetTilePosition()
@@ -118,5 +130,10 @@ public class Unit : MonoBehaviour
     public int GetAttackRange()
     {
         return AttackRange;
+    }
+
+    public int GetMoveDistance()
+    {
+        return MoveDistance;
     }
 }

@@ -21,6 +21,12 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         CurrentPlayerTurn = PlayerColor.Blue;
+        EventManager.Instance.SelectUnit += OnSelectedUnit;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.SelectUnit -= OnSelectedUnit;
     }
 
     private void Update()
@@ -40,16 +46,24 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public void SetSelectedUnit(Unit unit)
+    private void OnSelectedUnit(Unit unit)
     {
-        if (selectedUnit != null)
-            selectedUnit.SetSelected(false);
-
-        selectedUnit = unit;
-
-        if (selectedUnit != null)
-            selectedUnit.SetSelected(true);
+        if (selectedUnit == unit)
+            selectedUnit = null;
+        else
+            selectedUnit = unit;
     }
+
+    //public void SetSelectedUnit(Unit unit)
+    //{
+    //    if (selectedUnit != null)
+    //        selectedUnit.SetSelected(false);
+
+    //    selectedUnit = unit;
+
+    //    if (selectedUnit != null)
+    //        selectedUnit.SetSelected(true);
+    //}
 
     public Unit GetSelectedUnit()
     {

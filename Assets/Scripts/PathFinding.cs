@@ -16,23 +16,36 @@ public class PathFinding : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        highlightTilePositions = new List<Vector3Int>();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+            Destroy(this);
     }
 
     private void Start()
     {
+        highlightTilePositions = new List<Vector3Int>();
         AStar = new AStar(BaseTileMap);
+
+        EventManager.Instance.ResetHighlightedTiles += ResetHighlightedTiles;
+        EventManager.Instance.SetHightlightedTiles += SetTileHighlights;
     }
 
-    public void SetTileHighlights(Vector3 position, int MoveDistance, int AttackRange, PlayerColor playerColor)
+    private void OnDestroy()
     {
-        ResetHighlightedTiles();
+        EventManager.Instance.ResetHighlightedTiles -= ResetHighlightedTiles;
+        EventManager.Instance.SetHightlightedTiles += SetTileHighlights;
+    }
 
+    private void SetTileHighlights(Unit unit)
+    {
+        Debug.Log("SetTIleHighlights");
         IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
             .Select(x => x.GetTilePosition());
 
-        Vector3Int currentPosition = BaseTileMap.WorldToCell(position);
+        Vector3Int currentPosition = BaseTileMap.WorldToCell(unit.transform.position);
         List<Vector3Int> directions = new List<Vector3Int>
         {
             Vector3Int.up,
@@ -63,15 +76,15 @@ public class PathFinding : MonoBehaviour
                     else
                         visited.Add(newPosition, newCost);
 
-                    Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == newPosition && x.PlayerColor != playerColor);
-                    if (enemy != null && MoveDistance + AttackRange >= current.cost + 1)
+                    Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == newPosition && x.PlayerColor != unit.PlayerColor);
+                    if (enemy != null && unit.GetMoveDistance() + unit.GetAttackRange() >= current.cost + 1)
                     {
                         var highlight = Instantiate(Highlight, newPosition, Quaternion.identity);
                         highlight.SetColor(HighlightTileType.Attack);
                         newCost = Unit.MOVEMENT_COST; //Can't move through enemies
                         queue.Add(new MovementPath { cost = newCost, position = newPosition });
                     }
-                    else if (newCost <= MoveDistance && !highlightTilePositions.Contains(newPosition))
+                    else if (newCost <= unit.GetMoveDistance() && !highlightTilePositions.Contains(newPosition))
                     {
                         if (!unitPositions.Contains(newPosition))
                         {
@@ -87,8 +100,9 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    public void ResetHighlightedTiles()
+    private void ResetHighlightedTiles()
     {
+        Debug.Log("ResetHighlightedTiles");
         foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
             Destroy(highlight.gameObject);
         highlightTilePositions.Clear();
