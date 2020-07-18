@@ -78,7 +78,7 @@ public class AStar
                 {
                     AddValueIfMissing(costSoFar, possibleMove, newCost);
                     costSoFar[possibleMove] = newCost;
-                    int priority = newCost + ManhattanHeuristic(possibleMove, goal);
+                    int priority = newCost + PathFinding.ManhattanDistance(possibleMove, goal);
                     Frontier.Put(possibleMove, priority);
                     AddValueIfMissing(cameFrom, possibleMove, current);
                 }
@@ -129,16 +129,5 @@ public class AStar
         return Math.Sqrt(
             Math.Pow(currentPosition.x - goal.x, 2) +
             Math.Pow(currentPosition.y - goal.y, 2));
-    }
-
-    /// <summary>
-    /// Gets the manhattan distance from current position to the goal
-    /// </summary>
-    /// <param name="currentPosition"></param>
-    /// <returns>distance (int)</returns>
-    private int ManhattanHeuristic(Vector3Int currentPosition, Vector3Int goal)
-    {
-        return Math.Abs(currentPosition.x - goal.x) +
-            Math.Abs(currentPosition.y - goal.y);
     }
 }

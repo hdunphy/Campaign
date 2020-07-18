@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -100,5 +101,16 @@ public class PathFinding : MonoBehaviour
         List<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
             .Select(x => x.GetTilePosition()).ToList();
         return AStar.GetPath(startInt, goalInt, unitPositions);
+    }
+
+    /// <summary>
+    /// Gets the manhattan distance from current position to the goal
+    /// </summary>
+    /// <param name="currentPosition"></param>
+    /// <returns>distance (int)</returns>
+    public static int ManhattanDistance(Vector3Int currentPosition, Vector3Int goal)
+    {
+        return Math.Abs(currentPosition.x - goal.x) +
+            Math.Abs(currentPosition.y - goal.y);
     }
 }

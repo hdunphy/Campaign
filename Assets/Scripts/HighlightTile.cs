@@ -44,10 +44,10 @@ public class HighlightTile : MonoBehaviour
         //TileBase highlightedTile = highlightTileMap.GetTile(tilePos);
 
         //PlayerController playerOnTile = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == tilePos);
-        Debug.Log("HightlightTile called");
         if (selectedUnit != null)
         {
-            tileAction.OnMouseDownAction(selectedUnit, Vector3Int.FloorToInt(transform.position));
+            List<HighlightTile> highlightTiles = FindObjectsOfType<HighlightTile>().ToList();
+            tileAction.OnMouseDownAction(selectedUnit, Vector3Int.FloorToInt(transform.position), highlightTiles);
         }
     }
 }

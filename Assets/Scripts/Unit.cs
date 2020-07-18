@@ -84,23 +84,6 @@ public class Unit : MonoBehaviour
         StartCoroutine(StartPathFindingMovement(movePosition));
     }
 
-    private IEnumerator StartMovement(Vector3 movePosition)
-    {
-        while (transform.position.x != movePosition.x)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(movePosition.x, transform.position.y), MoveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        while (transform.position.y != movePosition.y)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, movePosition.y), MoveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        hasMoved = true;
-    }
-
     private IEnumerator StartPathFindingMovement(Vector3 movePosition)
     {
         List<Vector3Int> path = PathFinding.Instance.FindPathBetween(transform.position, movePosition);
@@ -116,6 +99,12 @@ public class Unit : MonoBehaviour
         hasMoved = true;
     }
 
+    public void Attack(Vector3Int highlightPosition)
+    {
+        Debug.Log("Attack");
+        PathFinding.Instance.ResetHighlightedTiles();
+    }
+
     public Vector3Int GetTilePosition()
     {
         return BaseTileMap.WorldToCell(transform.position);
@@ -124,5 +113,10 @@ public class Unit : MonoBehaviour
     public void EndOfTurn()
     {
         hasMoved = false;
+    }
+
+    public int GetAttackRange()
+    {
+        return AttackRange;
     }
 }
