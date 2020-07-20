@@ -8,11 +8,15 @@ public class HighlightAttackAction : IHighlightTileAction
         Vector3Int unitPosition = selectedUnit.GetTilePosition();
         int distanceFromEnemy = PathFinding.ManhattanDistance(unitPosition, highlightPosition);
         int unitAttackRange = selectedUnit.GetAttackRange();
-        if(distanceFromEnemy > unitAttackRange)
+        if (distanceFromEnemy > unitAttackRange)
         {
-            selectedUnit.Move(ClosestTileInRange(unitAttackRange, unitPosition, highlightPosition, highlightTiles));
+            Vector3Int movePosition = ClosestTileInRange(unitAttackRange, unitPosition, highlightPosition, highlightTiles);
+            selectedUnit.MoveThenAttack(movePosition, highlightPosition);
         }
-        selectedUnit.Attack(highlightPosition);
+        else
+        {
+            selectedUnit.Attack(highlightPosition);
+        }
         //After attacking if enemy is dead, move onto that square
     }
 
@@ -22,14 +26,14 @@ public class HighlightAttackAction : IHighlightTileAction
         int distanceFromUnit = int.MaxValue;
         Vector3Int closestTileInRange = position;
 
-        foreach(HighlightTile highlightTile in highlightTiles)
+        foreach (HighlightTile highlightTile in highlightTiles)
         {
             Vector3Int tilePosition = Vector3Int.FloorToInt(highlightTile.transform.position);
             int manhattanDistance = PathFinding.ManhattanDistance(position, tilePosition);
             if (manhattanDistance <= AttackRange)
             {
                 int tempDistanceFromUnit = PathFinding.ManhattanDistance(unitPosition, tilePosition);
-                if(tempDistanceFromUnit < distanceFromUnit)
+                if (tempDistanceFromUnit < distanceFromUnit)
                 {
                     distanceFromUnit = tempDistanceFromUnit;
                     closestTileInRange = tilePosition;

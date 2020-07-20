@@ -39,7 +39,11 @@ public class Manager : MonoBehaviour
 
     private void EndTurn()
     {
+        EventManager.Instance.OnSelectUnitTrigger(null);
+        EventManager.Instance.OnResetHighlightedTileTrigger();
+
         CurrentPlayerTurn = CurrentPlayerTurn == PlayerColor.Blue ? PlayerColor.Red : PlayerColor.Blue;
+        
         foreach(Unit unit in FindObjectsOfType<Unit>())
         {
             unit.EndOfTurn();

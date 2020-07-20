@@ -15,9 +15,16 @@ public class Unit : MonoBehaviour
     private Manager _manager;
     private bool isSelected;
     private bool hasMoved;
+    private bool hasAttacked;
+
     private int MoveDistance;
+    //private int MoveDistanceLeft;
     private int AttackRange;
     private float MoveSpeed;
+    private int CurrentHealth;
+    private int AttackDamage;
+    private int Armor;
+    private int TotalHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +32,12 @@ public class Unit : MonoBehaviour
         MoveDistance = Stats.MoveDistance;
         AttackRange = Stats.AttackRange;
         MoveSpeed = Stats.MoveSpeed;
+        CurrentHealth = TotalHealth = Stats.Health;
+        AttackDamage = Stats.AttackDamage;
+        Armor = Stats.Armor;
 
         hasMoved = false;
+        hasAttacked = false;
 
         _manager = Manager.Instance;
 
@@ -49,7 +60,6 @@ public class Unit : MonoBehaviour
     {
         if (_manager.GetCurrentPlayer() == PlayerColor)
         {
-            Debug.Log("OnMouseDown in selected unit");
             //Trigger isSelected
             EventManager.Instance.OnSelectUnitTrigger(this);
         }
@@ -90,10 +100,20 @@ public class Unit : MonoBehaviour
 
     public void Move(Vector3Int movePosition)
     {
+        hasMoved = true;
         //_manager.SetSelectedUnit(null);
         EventManager.Instance.OnSelectUnitTrigger(null);
         EventManager.Instance.OnResetHighlightedTileTrigger();
         StartCoroutine(StartPathFindingMovement(movePosition));
+    }
+
+    public void MoveThenAttack(Vector3Int movePosition, Vector3Int attackPosition)
+    {
+        hasMoved = true;
+        //_manager.SetSelectedUnit(null);
+        EventManager.Instance.OnSelectUnitTrigger(null);
+        EventManager.Instance.OnResetHighlightedTileTrigger();
+        StartCoroutine(StartMoveThenAttack(movePosition, attackPosition));
     }
 
     private IEnumerator StartPathFindingMovement(Vector3 movePosition)
@@ -107,14 +127,59 @@ public class Unit : MonoBehaviour
                 yield return null;
             }
         }
+    }
 
-        hasMoved = true;
+    private IEnumerator StartMoveThenAttack(Vector3Int movePosition, Vector3Int attackPosition)
+    {
+        yield return StartPathFindingMovement(movePosition);
+        Attack(attackPosition);
     }
 
     public void Attack(Vector3Int highlightPosition)
     {
-        Debug.Log("Attack");
-        //EventManager.Instance.OnResetHighlightedTileTrigger();
+        hasAttacked = true;
+        Debug.Log("Attack at: " + highlightPosition.ToString());
+        EventManager.Instance.OnResetHighlightedTileTrigger();
+
+        Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == highlightPosition);
+
+        int enemyDamage = AttackDamage - enemy.Armor;
+        int myDamage = Mathf.FloorToInt((enemy.AttackDamage - Armor) * .75f);
+        int enemyDistance = PathFinding.ManhattanDistance(GetTilePosition(), highlightPosition);
+
+        if(enemyDamage >= 1)
+        {
+            enemy.TakeDamage(enemyDamage);
+        }
+        if(myDamage >= 1 && enemy.AttackRange >= enemyDistance)
+        {
+            TakeDamage(myDamage);
+        }
+        if(enemy.CurrentHealth <= 0)
+        {
+            Destroy(enemy.gameObject);
+            Move(enemy.GetTilePosition());
+        }
+        if(CurrentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+        /*
+
+        if(enemy.health <= 0)
+        {
+            GetWalkableTiles();
+            Destroy(enemy.gameObject);
+            Instantiate(deathEffect, enemy.transform.position, Quaternion.identity);
+            gameMaster.RemoveStatsPanel(enemy);
+        }
+        if(health <= 0)
+        {
+            gameMaster.ResetTiles();
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            gameMaster.RemoveStatsPanel(this);
+            Destroy(this.gameObject);
+        }*/
     }
 
     public Vector3Int GetTilePosition()
@@ -125,6 +190,7 @@ public class Unit : MonoBehaviour
     public void EndOfTurn()
     {
         hasMoved = false;
+        hasAttacked = false;
     }
 
     public int GetAttackRange()
@@ -135,5 +201,20 @@ public class Unit : MonoBehaviour
     public int GetMoveDistance()
     {
         return MoveDistance;
+    }
+
+    public int GetArmor()
+    {
+        return Armor;
+    }
+
+    public int GetAttackDamage()
+    {
+        return AttackDamage;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        CurrentHealth -= damage;
     }
 }

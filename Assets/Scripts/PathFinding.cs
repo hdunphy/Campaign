@@ -41,7 +41,7 @@ public class PathFinding : MonoBehaviour
 
     private void SetTileHighlights(Unit unit)
     {
-        Debug.Log("SetTIleHighlights");
+        //Debug.Log("SetTIleHighlights");
         IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
             .Select(x => x.GetTilePosition());
 
@@ -102,7 +102,7 @@ public class PathFinding : MonoBehaviour
 
     private void ResetHighlightedTiles()
     {
-        Debug.Log("ResetHighlightedTiles");
+        //Debug.Log("ResetHighlightedTiles");
         foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
             Destroy(highlight.gameObject);
         highlightTilePositions.Clear();
@@ -120,11 +120,12 @@ public class PathFinding : MonoBehaviour
     /// <summary>
     /// Gets the manhattan distance from current position to the goal
     /// </summary>
-    /// <param name="currentPosition"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
     /// <returns>distance (int)</returns>
-    public static int ManhattanDistance(Vector3Int currentPosition, Vector3Int goal)
+    public static int ManhattanDistance(Vector3Int from, Vector3Int to)
     {
-        return Math.Abs(currentPosition.x - goal.x) +
-            Math.Abs(currentPosition.y - goal.y);
+        return Math.Abs(from.x - to.x) +
+            Math.Abs(from.y - to.y);
     }
 }
