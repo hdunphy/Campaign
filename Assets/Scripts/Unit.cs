@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
     private bool hasAttacked;
 
     private int MoveDistance;
-    //private int MoveDistanceLeft;
+    private int MoveDistanceLeft;
     private int AttackRange;
     private float MoveSpeed;
     private int CurrentHealth;
@@ -29,7 +29,7 @@ public class Unit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MoveDistance = Stats.MoveDistance;
+        MoveDistance = MoveDistanceLeft = Stats.MoveDistance;
         AttackRange = Stats.AttackRange;
         MoveSpeed = Stats.MoveSpeed;
         CurrentHealth = TotalHealth = Stats.Health;
@@ -71,7 +71,7 @@ public class Unit : MonoBehaviour
         {
             EventManager.Instance.OnResetHighlightedTileTrigger();
             isSelected = !isSelected;
-            if (isSelected && !hasMoved)
+            if (isSelected && (!hasMoved || !hasAttacked))
             {
                 EventManager.Instance.OnSetHighlightedTileTrigger(this);
             }
@@ -82,37 +82,23 @@ public class Unit : MonoBehaviour
         }
     }
 
-    //public void SetSelected(bool isSelected)
-    //{
-    //    this.isSelected = isSelected;
-    //    if (this.isSelected)
-    //    {
-    //        if (!hasMoved)
-    //        {
-    //            EventManager.Instance.OnSetHighlightedTileTrigger(this);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        EventManager.Instance.OnResetHighlightedTileTrigger();
-    //    }
-    //}
+    private void MoveSetup()
+    {
+        hasMoved = true;
+        MoveDistanceLeft = 0;
+        EventManager.Instance.OnSelectUnitTrigger(null);
+        EventManager.Instance.OnResetHighlightedTileTrigger();
+    }
 
     public void Move(Vector3Int movePosition)
     {
-        hasMoved = true;
-        //_manager.SetSelectedUnit(null);
-        EventManager.Instance.OnSelectUnitTrigger(null);
-        EventManager.Instance.OnResetHighlightedTileTrigger();
+        MoveSetup();
         StartCoroutine(StartPathFindingMovement(movePosition));
     }
 
     public void MoveThenAttack(Vector3Int movePosition, Vector3Int attackPosition)
     {
-        hasMoved = true;
-        //_manager.SetSelectedUnit(null);
-        EventManager.Instance.OnSelectUnitTrigger(null);
-        EventManager.Instance.OnResetHighlightedTileTrigger();
+        MoveSetup();
         StartCoroutine(StartMoveThenAttack(movePosition, attackPosition));
     }
 
@@ -164,22 +150,6 @@ public class Unit : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        /*
-
-        if(enemy.health <= 0)
-        {
-            GetWalkableTiles();
-            Destroy(enemy.gameObject);
-            Instantiate(deathEffect, enemy.transform.position, Quaternion.identity);
-            gameMaster.RemoveStatsPanel(enemy);
-        }
-        if(health <= 0)
-        {
-            gameMaster.ResetTiles();
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
-            gameMaster.RemoveStatsPanel(this);
-            Destroy(this.gameObject);
-        }*/
     }
 
     public Vector3Int GetTilePosition()
@@ -191,6 +161,7 @@ public class Unit : MonoBehaviour
     {
         hasMoved = false;
         hasAttacked = false;
+        MoveDistanceLeft = MoveDistance;
     }
 
     public int GetAttackRange()
@@ -200,7 +171,7 @@ public class Unit : MonoBehaviour
 
     public int GetMoveDistance()
     {
-        return MoveDistance;
+        return MoveDistanceLeft;
     }
 
     public int GetArmor()

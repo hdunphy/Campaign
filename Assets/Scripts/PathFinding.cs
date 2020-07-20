@@ -41,7 +41,6 @@ public class PathFinding : MonoBehaviour
 
     private void SetTileHighlights(Unit unit)
     {
-        //Debug.Log("SetTIleHighlights");
         IEnumerable<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
             .Select(x => x.GetTilePosition());
 
@@ -102,7 +101,6 @@ public class PathFinding : MonoBehaviour
 
     private void ResetHighlightedTiles()
     {
-        //Debug.Log("ResetHighlightedTiles");
         foreach (HighlightTile highlight in FindObjectsOfType<HighlightTile>())
             Destroy(highlight.gameObject);
         highlightTilePositions.Clear();

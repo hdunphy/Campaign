@@ -58,17 +58,6 @@ public class Manager : MonoBehaviour
             selectedUnit = unit;
     }
 
-    //public void SetSelectedUnit(Unit unit)
-    //{
-    //    if (selectedUnit != null)
-    //        selectedUnit.SetSelected(false);
-
-    //    selectedUnit = unit;
-
-    //    if (selectedUnit != null)
-    //        selectedUnit.SetSelected(true);
-    //}
-
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
