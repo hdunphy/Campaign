@@ -71,9 +71,16 @@ public class Unit : MonoBehaviour
         {
             EventManager.Instance.OnResetHighlightedTileTrigger();
             isSelected = !isSelected;
-            if (isSelected && (!hasMoved || !hasAttacked))
+            if (isSelected)
             {
-                EventManager.Instance.OnSetHighlightedTileTrigger(this);
+                if (!hasMoved)
+                {
+                    EventManager.Instance.OnSetHighlightedTileTrigger(this);
+                }
+                else if (!hasAttacked)
+                {
+                    EventManager.Instance.OnGetEnemiesInRangeTrigger(this);
+                }
             }
         }
         else
@@ -105,9 +112,9 @@ public class Unit : MonoBehaviour
     private IEnumerator StartPathFindingMovement(Vector3 movePosition)
     {
         List<Vector3Int> path = PathFinding.Instance.FindPathBetween(transform.position, movePosition);
-        foreach(Vector3 step in path)
+        foreach (Vector3 step in path)
         {
-            while(transform.position != step)
+            while (transform.position != step)
             {
                 transform.position = Vector2.MoveTowards(transform.position, step, MoveSpeed * Time.deltaTime);
                 yield return null;
@@ -124,7 +131,6 @@ public class Unit : MonoBehaviour
     public void Attack(Vector3Int highlightPosition)
     {
         hasAttacked = true;
-        Debug.Log("Attack at: " + highlightPosition.ToString());
         EventManager.Instance.OnResetHighlightedTileTrigger();
 
         Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == highlightPosition);
@@ -133,20 +139,21 @@ public class Unit : MonoBehaviour
         int myDamage = Mathf.FloorToInt((enemy.AttackDamage - Armor) * .75f);
         int enemyDistance = PathFinding.ManhattanDistance(GetTilePosition(), highlightPosition);
 
-        if(enemyDamage >= 1)
+        if (enemyDamage >= 1)
         {
             enemy.TakeDamage(enemyDamage);
         }
-        if(myDamage >= 1 && enemy.AttackRange >= enemyDistance)
+        if (myDamage >= 1 && enemy.AttackRange >= enemyDistance)
         {
             TakeDamage(myDamage);
         }
-        if(enemy.CurrentHealth <= 0)
+        if (enemy.CurrentHealth <= 0)
         {
             Destroy(enemy.gameObject);
-            Move(enemy.GetTilePosition());
+            if(AttackRange == 1) //Melee units move to the enemy position after killing
+                Move(enemy.GetTilePosition());
         }
-        if(CurrentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Destroy(this.gameObject);
         }

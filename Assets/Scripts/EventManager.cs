@@ -21,6 +21,7 @@ public class EventManager : MonoBehaviour
     public event Action<Unit> SelectUnit;
     public event Action ResetHighlightedTiles;
     public event Action<Unit> SetHightlightedTiles;
+    public event Action<Unit> GetEnemiesInRange;
 
     public void OnSelectUnitTrigger(Unit selectedUnit)
     {
@@ -35,5 +36,10 @@ public class EventManager : MonoBehaviour
     public void OnSetHighlightedTileTrigger(Unit unit)
     {
         SetHightlightedTiles?.Invoke(unit);
+    }
+
+    public void OnGetEnemiesInRangeTrigger(Unit unit)
+    {
+        GetEnemiesInRange?.Invoke(unit);
     }
 }

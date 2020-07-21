@@ -1,0 +1,536 @@
+fileFormatVersion: 2
+guid: e4c4cbb4265da324e90fb8d5ec6e8ac6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1996907199195155435
+    second: HorseKnight_0
+  - first:
+      213: 8195800404591681201
+    second: HorseKnight_1
+  - first:
+      213: 5828575159281242487
+    second: HorseKnight_2
+  - first:
+      213: -3967422114254071496
+    second: HorseKnight_3
+  - first:
+      213: 2139274460676229645
+    second: HorseKnight_4
+  - first:
+      213: -7301031988135150433
+    second: HorseKnight_5
+  - first:
+      213: 8649392757061603744
+    second: HorseKnight_6
+  - first:
+      213: -4947814716594388519
+    second: HorseKnight_7
+  - first:
+      213: -539845110095171308
+    second: HorseKnight_8
+  - first:
+      213: -8561429413226090211
+    second: HorseKnight_9
+  - first:
+      213: -2325925018001357369
+    second: HorseKnight_10
+  - first:
+      213: -8154583833213022314
+    second: HorseKnight_11
+  - first:
+      213: 8416503842405205660
+    second: HorseKnight_12
+  - first:
+      213: 5414919768639755827
+    second: HorseKnight_13
+  - first:
+      213: -2755125702985214216
+    second: HorseKnight_14
+  - first:
+      213: -8339211542353833090
+    second: HorseKnight_15
+  - first:
+      213: -6055321182046975122
+    second: HorseKnight_0
+  - first:
+      213: -9092052126248263024
+    second: HorseKnight_1
+  - first:
+      213: -5539356478968997198
+    second: HorseKnight_2
+  - first:
+      213: -7028496729432902159
+    second: HorseKnight_3
+  - first:
+      213: -3066260305425802781
+    second: HorseKnight_4
+  - first:
+      213: 38355710739280282
+    second: HorseKnight_5
+  - first:
+      213: 9115658421388618558
+    second: HorseKnight_6
+  - first:
+      213: 4360491931010651000
+    second: HorseKnight_7
+  - first:
+      213: 8921502209672856245
+    second: HorseKnight_8
+  - first:
+      213: 7929707723964859985
+    second: HorseKnight_9
+  - first:
+      213: -9076415742300204670
+    second: HorseKnight_10
+  - first:
+      213: 5713047158676951274
+    second: HorseKnight_11
+  - first:
+      213: 1269409781135970057
+    second: HorseKnight_12
+  - first:
+      213: 8010465021571791577
+    second: HorseKnight_13
+  - first:
+      213: 7840518178402694212
+    second: HorseKnight_14
+  - first:
+      213: -8601846579172624818
+    second: HorseKnight_15
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HorseKnight_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 208
+        width: 33
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6b0137a77d27fba0800000000000000
+      internalID: -6055321182046975122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 210
+        width: 33
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09223af43ca82d180800000000000000
+      internalID: -9092052126248263024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 209
+        width: 33
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba5bc291a04023b0800000000000000
+      internalID: -5539356478968997198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_3
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 213
+        width: 33
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f538219673c57e90800000000000000
+      internalID: -7028496729432902159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_4
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 139
+        width: 60
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e9d63a7f747275d0800000000000000
+      internalID: -3066260305425802781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_5
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 138
+        width: 61
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a91f8b1d054488000800000000000000
+      internalID: 38355710739280282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_6
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 138
+        width: 62
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3baaa49903518e70800000000000000
+      internalID: 9115658421388618558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_7
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 141
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 873d8d1fe44938c30800000000000000
+      internalID: 4360491931010651000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 70
+        width: 60
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b2c966ddfa8fcb70800000000000000
+      internalID: 8921502209672856245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_9
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 69
+        width: 61
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 156c89b592bfb0e60800000000000000
+      internalID: 7929707723964859985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_10
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 69
+        width: 62
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 281de66a8f71a0280800000000000000
+      internalID: -9076415742300204670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_11
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 72
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae09efd2f12d84f40800000000000000
+      internalID: 5713047158676951274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 2
+        width: 33
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f04076879dd9110800000000000000
+      internalID: 1269409781135970057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_13
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 33
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9da7a70fe73ea2f60800000000000000
+      internalID: 8010465021571791577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_14
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 3
+        width: 33
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4447fae0ebd1fcc60800000000000000
+      internalID: 7840518178402694212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HorseKnight_15
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 3
+        width: 33
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e46b10c5c1a10a880800000000000000
+      internalID: -8601846579172624818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -15,7 +15,7 @@ public class HighlightTile : MonoBehaviour
     private HighlightTileType TileType;
     private IHighlightTileAction tileAction;
 
-    public void SetColor(HighlightTileType type)
+    public void SetType(HighlightTileType type)
     {
         TileType = type;
         switch (type)
@@ -40,10 +40,6 @@ public class HighlightTile : MonoBehaviour
     {
 
         Unit selectedUnit = Manager.Instance.GetSelectedUnit();
-        //Vector3Int tilePos = highlightTileMap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        //TileBase highlightedTile = highlightTileMap.GetTile(tilePos);
-
-        //PlayerController playerOnTile = FindObjectsOfType<PlayerController>().FirstOrDefault(x => x.GetTilePosition() == tilePos);
         if (selectedUnit != null)
         {
             List<HighlightTile> highlightTiles = FindObjectsOfType<HighlightTile>().ToList();

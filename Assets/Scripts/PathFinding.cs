@@ -31,12 +31,14 @@ public class PathFinding : MonoBehaviour
 
         EventManager.Instance.ResetHighlightedTiles += ResetHighlightedTiles;
         EventManager.Instance.SetHightlightedTiles += SetTileHighlights;
+        EventManager.Instance.GetEnemiesInRange += GetEnemiesInRange;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.ResetHighlightedTiles -= ResetHighlightedTiles;
-        EventManager.Instance.SetHightlightedTiles += SetTileHighlights;
+        EventManager.Instance.SetHightlightedTiles -= SetTileHighlights;
+        EventManager.Instance.GetEnemiesInRange -= GetEnemiesInRange;
     }
 
     private void SetTileHighlights(Unit unit)
@@ -79,7 +81,7 @@ public class PathFinding : MonoBehaviour
                     if (enemy != null && unit.GetMoveDistance() + unit.GetAttackRange() >= current.cost + 1)
                     {
                         var highlight = Instantiate(Highlight, newPosition, Quaternion.identity);
-                        highlight.SetColor(HighlightTileType.Attack);
+                        highlight.SetType(HighlightTileType.Attack);
                         newCost = Unit.MOVEMENT_COST; //Can't move through enemies
                         queue.Add(new MovementPath { cost = newCost, position = newPosition });
                     }
@@ -89,13 +91,26 @@ public class PathFinding : MonoBehaviour
                         {
                             highlightTilePositions.Add(newPosition);
                             var highlight = Instantiate(Highlight, newPosition, Quaternion.identity);
-                            highlight.SetColor(HighlightTileType.Move);
+                            highlight.SetType(HighlightTileType.Move);
                         }
                         queue.Add(new MovementPath { cost = newCost, position = newPosition });
                     }
                 }
             }
             queue.RemoveAt(0);
+        }
+    }
+
+    public void GetEnemiesInRange(Unit unit)
+    {
+        foreach(Unit enemy in FindObjectsOfType<Unit>())
+        {
+            int distance = ManhattanDistance(unit.GetTilePosition(), enemy.GetTilePosition());
+            if(enemy.PlayerColor != unit.PlayerColor && distance <= unit.GetAttackRange())
+            {
+                var highlight = Instantiate(Highlight, enemy.GetTilePosition(), Quaternion.identity);
+                highlight.SetType(HighlightTileType.Attack);
+            }
         }
     }
 
