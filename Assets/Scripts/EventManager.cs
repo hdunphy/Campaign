@@ -22,6 +22,7 @@ public class EventManager : MonoBehaviour
     public event Action ResetHighlightedTiles;
     public event Action<Unit> SetHightlightedTiles;
     public event Action<Unit> GetEnemiesInRange;
+    public event Action<PlayerColor> EndTurn;
 
     public void OnSelectUnitTrigger(Unit selectedUnit)
     {
@@ -41,5 +42,10 @@ public class EventManager : MonoBehaviour
     public void OnGetEnemiesInRangeTrigger(Unit unit)
     {
         GetEnemiesInRange?.Invoke(unit);
+    }
+
+    public void OnEndTurnTrigger(PlayerColor nextTurnPlayer)
+    {
+        EndTurn?.Invoke(nextTurnPlayer);
     }
 }

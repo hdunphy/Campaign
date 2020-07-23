@@ -48,11 +48,13 @@ public class Unit : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.red;
 
         EventManager.Instance.SelectUnit += OnSelectedUnit;
+        EventManager.Instance.EndTurn += EndOfTurn;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.SelectUnit -= OnSelectedUnit;
+        EventManager.Instance.EndTurn -= EndOfTurn;
     }
 
     //public void SelectUnit()
@@ -164,8 +166,9 @@ public class Unit : MonoBehaviour
         return BaseTileMap.WorldToCell(transform.position);
     }
 
-    public void EndOfTurn()
+    public void EndOfTurn(PlayerColor nextPlayerColor)
     {
+        isSelected = false;
         hasMoved = false;
         hasAttacked = false;
         MoveDistanceLeft = MoveDistance;

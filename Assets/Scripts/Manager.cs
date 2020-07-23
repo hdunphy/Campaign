@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum PlayerColor { Red, Blue }
+public enum PlayerColor { Blue, Red }
 
 public class Manager : MonoBehaviour
 {
@@ -39,15 +40,16 @@ public class Manager : MonoBehaviour
 
     private void EndTurn()
     {
-        EventManager.Instance.OnSelectUnitTrigger(null);
+        selectedUnit = null;
         EventManager.Instance.OnResetHighlightedTileTrigger();
 
-        CurrentPlayerTurn = CurrentPlayerTurn == PlayerColor.Blue ? PlayerColor.Red : PlayerColor.Blue;
-        
-        foreach(Unit unit in FindObjectsOfType<Unit>())
-        {
-            unit.EndOfTurn();
-        }
+        int playerColorIndex = (int)CurrentPlayerTurn + 1;
+        var playerColors = Enum.GetValues(typeof(PlayerColor)).Cast<PlayerColor>().ToList();
+        if (playerColorIndex >= playerColors.Count())
+            playerColorIndex = 0;
+        CurrentPlayerTurn = playerColors[playerColorIndex];
+
+        EventManager.Instance.OnEndTurnTrigger(CurrentPlayerTurn);
     }
 
     private void OnSelectedUnit(Unit unit)
