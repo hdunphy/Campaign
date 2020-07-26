@@ -130,16 +130,16 @@ public class Unit : MonoBehaviour
         Attack(attackPosition);
     }
 
-    public void Attack(Vector3Int highlightPosition)
+    public void Attack(Vector3Int attackPosition)
     {
         hasAttacked = true;
         EventManager.Instance.OnResetHighlightedTileTrigger();
 
-        Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == highlightPosition);
+        Unit enemy = FindObjectsOfType<Unit>().FirstOrDefault(x => x.GetTilePosition() == attackPosition);
 
         int enemyDamage = AttackDamage - enemy.Armor;
         int myDamage = Mathf.FloorToInt((enemy.AttackDamage - Armor) * .75f);
-        int enemyDistance = PathFinding.ManhattanDistance(GetTilePosition(), highlightPosition);
+        int enemyDistance = PathFinding.ManhattanDistance(GetTilePosition(), attackPosition);
 
         if (enemyDamage >= 1)
         {
