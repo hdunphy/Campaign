@@ -121,11 +121,12 @@ public class PathFinding : MonoBehaviour
         highlightTilePositions.Clear();
     }
 
-    public List<Vector3Int> FindPathBetween(Vector3 start, Vector3 goal)
+    public List<Vector3Int> FindPathBetween(Vector3 start, Vector3 goal, PlayerColor player)
     {
         Vector3Int startInt = BaseTileMap.WorldToCell(start);
         Vector3Int goalInt = BaseTileMap.WorldToCell(goal);
         List<Vector3Int> unitPositions = FindObjectsOfType<Unit>()
+            .Where(x => x.PlayerColor != player)
             .Select(x => x.GetTilePosition()).ToList();
         return AStar.GetPath(startInt, goalInt, unitPositions);
     }

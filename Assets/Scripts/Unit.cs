@@ -113,7 +113,7 @@ public class Unit : MonoBehaviour
 
     private IEnumerator StartPathFindingMovement(Vector3 movePosition)
     {
-        List<Vector3Int> path = PathFinding.Instance.FindPathBetween(transform.position, movePosition);
+        List<Vector3Int> path = PathFinding.Instance.FindPathBetween(transform.position, movePosition, PlayerColor);
         foreach (Vector3 step in path)
         {
             while (transform.position != step)
